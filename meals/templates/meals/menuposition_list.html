@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for menu_position in menuposition_list %}
+        <p>{{ menu_position.name }}</p>
+        <p>{{ menu_position.nutritional_value }}</p>
+        <p>{{ menu_position.price }}</p>
+        <p>{{ menu_position.image }}</p>
+        <p>================</p>
+    {% endfor %}
+</body>
+</html>

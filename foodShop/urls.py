@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.conf.urls.static import static
-from django.contrib import admin
 
 from foodShop import settings
+from meals.views import MenuPositionListView
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', MenuPositionListView.as_view(), name='index'),
 ]
 
 if settings.DEBUG:

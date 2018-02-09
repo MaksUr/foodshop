@@ -1,4 +1,5 @@
 # model MenuPosition
+MENU_POSITION_PAGINATE_BY = 15
 # name
 MENU_POSITION_NAME = 'name'
 MENU_POSITION_NAME_KEY = 'Название'

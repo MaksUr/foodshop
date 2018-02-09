@@ -12,3 +12,6 @@ class MenuPosition(models.Model):
     nutritional_value = PositiveIntegerField(MENU_POSITION_NUTRITIONAL_VALUE_KEY)
     price = PositiveIntegerField(MENU_POSITION_PRICE_KEY)
     image = ImageField(MENU_POSITION_IMAGE_KEY, upload_to='meal_images/')
+
+    def __str__(self):
+        return self.name
