@@ -1,17 +1,17 @@
-# model Meal
+# model MenuPosition
 # name
-MEAL_NAME = 'name'
-MEAL_NAME_KEY = 'Название'
-MEAL_NAME_HELP = 'Название блюда должно быть не более 45 символов.'
+MENU_POSITION_NAME = 'name'
+MENU_POSITION_NAME_KEY = 'Название'
+MENU_POSITION_NAME_HELP = 'Название блюда должно быть не более 45 символов.'
 # nutritional_value (пищевая ценность)
-MEAL_NUTRITIONAL_VALUE = 'nutritional_value'
-MEAL_NUTRITIONAL_KEY = 'Пищевая ценность'
-MEAL_NUTRITIONAL_HELP = 'Укажите пищевую ценность продука в килокалориях (ккал).'
+MENU_POSITION_NUTRITIONAL_VALUE = 'nutritional_value'
+MENU_POSITION_NUTRITIONAL_VALUE_KEY = 'Пищевая ценность'
+MENU_POSITION_NUTRITIONAL_VALUE_HELP = 'Укажите пищевую ценность продука в килокалориях (ккал).'
 # price
-MEAL_PRICE = 'price'
-MEAL_PRICE_KEY = 'Цена'
-MEAL_PRICE_HELP = 'Укажите цену за одно блюдо.'
+MENU_POSITION_PRICE = 'price'
+MENU_POSITION_PRICE_KEY = 'Цена'
+MENU_POSITION_PRICE_HELP = 'Укажите цену за одно блюдо.'
 # image
-MEAL_IMAGE = 'image'
-MEAL_IMAGE_KEY = 'Изображение готово блюда'
-MEAL_IMAGE_HELP = 'Фото должно быть хорошего качества и фирменном стиле нашего ресторана.'
+MENU_POSITION_IMAGE = 'image'
+MENU_POSITION_IMAGE_KEY = 'Изображение готово блюда'
+MENU_POSITION_IMAGE_HELP = 'Фото должно быть хорошего качества и фирменном стиле нашего ресторана.'
