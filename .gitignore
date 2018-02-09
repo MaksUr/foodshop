@@ -1,0 +1,13 @@
+# PyCharm
+.idea/
+
+# python
+__pycache__/
+
+# Django
+db.sqlite3
+media/
+
+# Other
+other/
+
