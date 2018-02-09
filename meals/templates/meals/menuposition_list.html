@@ -9,8 +9,20 @@
         <p>{{ menu_position.name }}</p>
         <p>{{ menu_position.nutritional_value }}</p>
         <p>{{ menu_position.price }}</p>
-        <p>{{ menu_position.image }}</p>
+        <p></p>
+        <img src="{{ menu_position.image }}" alt="{{ menu_position.name }}">
         <p>================</p>
+    {% empty %}
+        Меню в разработке.
     {% endfor %}
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+    {% endif %}
 </body>
 </html>
