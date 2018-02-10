@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-from django.db.models import CharField, PositiveIntegerField, ImageField
+from django.db.models import CharField, PositiveIntegerField, ImageField, DecimalField, ForeignKey
 
 from meals.constants import MENU_POSITION_NAME_KEY, MENU_POSITION_NUTRITIONAL_VALUE_KEY, MENU_POSITION_IMAGE_KEY, \
     MENU_POSITION_PRICE_KEY
@@ -10,8 +10,19 @@ from meals.constants import MENU_POSITION_NAME_KEY, MENU_POSITION_NUTRITIONAL_VA
 class MenuPosition(models.Model):
     name = CharField(MENU_POSITION_NAME_KEY, max_length=45)
     nutritional_value = PositiveIntegerField(MENU_POSITION_NUTRITIONAL_VALUE_KEY)
-    price = PositiveIntegerField(MENU_POSITION_PRICE_KEY)
+    price = DecimalField(MENU_POSITION_PRICE_KEY, max_digits=10, decimal_places=2)
     image = ImageField(MENU_POSITION_IMAGE_KEY, upload_to='meal_images/')
 
     def __str__(self):
         return self.name
+
+
+class Order(models.Model):
+    pass
+
+
+class MenuPositionInOrder(models.Model):
+    menu_position = ForeignKey(MenuPosition)
+    order = ForeignKey(Order)
+
+

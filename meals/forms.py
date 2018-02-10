@@ -23,6 +23,11 @@ class AdvancedModelMultipleChoiceField(ModelMultipleChoiceField):
 class MenuPositionSelectForm(forms.Form):
     menu_positions = AdvancedModelMultipleChoiceField(queryset=MenuPosition.objects.all(), required=True)
 
-    def calculate(self):
-        return self.cleaned_data.get('menu_positions')
+    def add_order(self):
+        menu_positions = self.cleaned_data.get('menu_positions')
+        # TODO: create order
+        # TODO: add positions to order
+        return order_id
+
+
 

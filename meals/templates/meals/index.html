@@ -16,7 +16,9 @@
                         >
                     </label>
                     <strong>{{ obj.name }}</strong>
-                    <span class="price">{{ obj.price }}</span>
+                    <span class="price">Цена: {{ obj.price }}</span>
+                    <span class="price">Калорийность: {{ obj.nutritional_value }}</span>
+                    <img src="{{ obj.image }}" alt="{{ obj.name }}">
                 </li>
             {% endfor %}
         </ul>
