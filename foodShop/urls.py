@@ -17,10 +17,12 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 
 from foodShop import settings
-from meals.views import MenuPositionListView
+from meals.views import MenuPositionSelectFormView, MenuPositionListView
 
 urlpatterns = [
-    url(r'^$', MenuPositionListView.as_view(), name='index'),
+    url(r'^$', MenuPositionSelectFormView.as_view(), name='index'),
+    # TODO: move to meal
+    url(r'^order/$', MenuPositionListView.as_view(), name='order'),
 ]
 
 if settings.DEBUG:

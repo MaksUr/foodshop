@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="post">{% csrf_token %}
+        <ul>
+            {% for value, text, obj  in form.menu_positions.field.choices %}
+                <li>
+                    <label for="id_{{ form.menu_positions.name }}_{{ obj.id }}">
+                        <input type="checkbox"
+                                   name="{{ form.menu_positions.name }}"
+                                   value="{{ obj.id }}"
+                        >
+                    </label>
+                    <strong>{{ obj.name }}</strong>
+                    <span class="price">{{ obj.price }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if form.errors %}
+                <p>В заказе нет позиций.</p>
+        {% endif %}
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+</html>
