@@ -24,7 +24,7 @@ def create_test_positions():
     for name_image in images:
         r = parse_menu_position_name(name_image)
         if not r:
-            return
+            continue
         name, nutr_val, price = r
         MenuPosition.objects.create(
             name=name, nutritional_value=nutr_val,

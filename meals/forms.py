@@ -2,6 +2,9 @@ from django import forms
 from django.forms import ChoiceField, ModelMultipleChoiceField
 from django.forms.models import ModelChoiceIterator
 
+from meals.constants import MENU_POSITION_NAME, MENU_POSITION_NUTRITIONAL_VALUE, MENU_POSITION_PRICE, \
+    MENU_POSITION_IMAGE, MENU_POSITION_NAME_HELP, MENU_POSITION_NUTRITIONAL_VALUE_HELP, MENU_POSITION_PRICE_HELP, \
+    MENU_POSITION_IMAGE_HELP
 from meals.models import MenuPosition, Order, MenuPositionInOrder
 
 
@@ -29,4 +32,23 @@ class MenuPositionSelectForm(forms.Form):
         for menu_position in menu_positions:
             MenuPositionInOrder.objects.create(menu_position=menu_position, order=order)
         return order
+
+
+class MenuPositionForm(forms.ModelForm):
+    class Meta:
+        model = MenuPosition
+        fields = (
+            MENU_POSITION_NAME,
+            MENU_POSITION_NUTRITIONAL_VALUE,
+            MENU_POSITION_PRICE,
+            MENU_POSITION_IMAGE,
+        )
+
+        help_texts = {
+            MENU_POSITION_NAME: MENU_POSITION_NAME_HELP,
+            MENU_POSITION_NUTRITIONAL_VALUE: MENU_POSITION_NUTRITIONAL_VALUE_HELP,
+            MENU_POSITION_PRICE: MENU_POSITION_PRICE_HELP,
+            MENU_POSITION_IMAGE: MENU_POSITION_IMAGE_HELP,
+        }
+
 

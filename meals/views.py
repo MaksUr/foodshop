@@ -4,10 +4,10 @@ from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.urls import reverse
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, ListView, DetailView
 
 from meals.constants import MENU_POSITION_PAGINATE_BY
-from meals.forms import MenuPositionSelectForm
+from meals.forms import MenuPositionSelectForm, MenuPositionForm
 from meals.models import MenuPosition, Order
 
 
@@ -40,3 +40,17 @@ class MenuPositionInOrderListView(ListView):
         context['total_price'] = self.object_list.aggregate(Sum('price')).get('price__sum')
         return context
 
+
+class NewMenuPositionView(FormView):
+    form_class = MenuPositionForm
+    template_name = "meals/new_menu_position.html"
+
+    def form_valid(self, form):
+        obj = form.save()
+        self.success_url = obj.get_absolute_url()
+        return super().form_valid(form)
+
+
+class MenuPositionDetailView(DetailView):
+    model = MenuPosition
+    pass

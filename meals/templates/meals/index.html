@@ -5,25 +5,19 @@
     <title>Title</title>
 </head>
 <body>
+    <a href="{% url 'add_position' %}">Добавить позицию</a>
     {% if form.menu_positions.field.choices %}
         <form method="post">{% csrf_token %}
             <ul>
                 {% for value, text, obj  in form.menu_positions.field.choices %}
                     <li>
-                        <p>
-                            <img src="{{ obj.image }}" alt="{{ obj.name }}" height="150" width="150">
-
+                        {% include 'meals/menu_position_for_include.html' with object=obj %}
                         <label for="id_{{ form.menu_positions.name }}_{{ obj.id }}">
                             <input type="checkbox"
                                        name="{{ form.menu_positions.name }}"
                                        value="{{ obj.id }}"
                             >
                         </label>
-                        <strong>{{ obj.name }}</strong>
-                        <span class="price">Цена: {{ obj.price }}</span>
-                        <span class="price">Калорийность: {{ obj.nutritional_value }}</span>
-                        </p>
-
                     </li>
                 {% endfor %}
             </ul>
