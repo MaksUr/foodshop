@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
@@ -30,10 +31,12 @@ class MenuPositionInOrderListView(ListView):
 
     def get_queryset(self):
         order = get_object_or_404(Order, id=self.kwargs.get('pk'))
-        return order.menupositioninorder_set.all()
+        queryset = MenuPosition.objects.filter(menupositioninorder__order=order)
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # TODO: count total price
+        context['total_price'] = self.object_list.aggregate(Sum('price')).get('price__sum')
         return context
 
