@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ChoiceField, ModelMultipleChoiceField
 from django.forms.models import ModelChoiceIterator
 
-from meals.models import MenuPosition
+from meals.models import MenuPosition, Order, MenuPositionInOrder
 
 
 class AdvancedModelChoiceIterator(ModelChoiceIterator):
@@ -25,9 +25,8 @@ class MenuPositionSelectForm(forms.Form):
 
     def add_order(self):
         menu_positions = self.cleaned_data.get('menu_positions')
-        # TODO: create order
-        # TODO: add positions to order
-        return order_id
-
-
+        order = Order.objects.create()
+        for menu_position in menu_positions:
+            MenuPositionInOrder.objects.create(menu_position=menu_position, order=order)
+        return order
 

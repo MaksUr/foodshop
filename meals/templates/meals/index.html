@@ -5,27 +5,36 @@
     <title>Title</title>
 </head>
 <body>
-    <form method="post">{% csrf_token %}
-        <ul>
-            {% for value, text, obj  in form.menu_positions.field.choices %}
-                <li>
-                    <label for="id_{{ form.menu_positions.name }}_{{ obj.id }}">
-                        <input type="checkbox"
-                                   name="{{ form.menu_positions.name }}"
-                                   value="{{ obj.id }}"
-                        >
-                    </label>
-                    <strong>{{ obj.name }}</strong>
-                    <span class="price">Цена: {{ obj.price }}</span>
-                    <span class="price">Калорийность: {{ obj.nutritional_value }}</span>
-                    <img src="{{ obj.image }}" alt="{{ obj.name }}">
-                </li>
-            {% endfor %}
-        </ul>
-        {% if form.errors %}
-                <p>В заказе нет позиций.</p>
-        {% endif %}
-        <input type="submit" value="Submit" />
-    </form>
+    {% if form.menu_positions.field.choices %}
+        <form method="post">{% csrf_token %}
+            <ul>
+                {% for value, text, obj  in form.menu_positions.field.choices %}
+                    <li>
+                        <p>
+                            <img src="{{ obj.image }}" alt="{{ obj.name }}" height="150" width="150">
+
+                        <label for="id_{{ form.menu_positions.name }}_{{ obj.id }}">
+                            <input type="checkbox"
+                                       name="{{ form.menu_positions.name }}"
+                                       value="{{ obj.id }}"
+                            >
+                        </label>
+                        <strong>{{ obj.name }}</strong>
+                        <span class="price">Цена: {{ obj.price }}</span>
+                        <span class="price">Калорийность: {{ obj.nutritional_value }}</span>
+                        </p>
+
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if form.errors %}
+                    <p>Для оформления заказа необходимо выбрать хотябы одну позицию</p>
+            {% endif %}
+            <input type="submit" value="Submit" />
+        </form>
+    {% else %}
+        <p>Наше меню находится в разработке.</p>
+    {% endif %}
+
 </body>
 </html>

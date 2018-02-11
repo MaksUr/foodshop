@@ -1,16 +1,16 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.urls import reverse
 from django.views.generic import FormView, ListView
 
+from meals.constants import MENU_POSITION_PAGINATE_BY
 from meals.forms import MenuPositionSelectForm
-from meals.models import MenuPosition
+from meals.models import MenuPosition, Order
 
 
 class MenuPositionSelectFormView(FormView):
-    success_url = 'order'
     form_class = MenuPositionSelectForm
     template_name = 'meals/index.html'
 
@@ -19,14 +19,21 @@ class MenuPositionSelectFormView(FormView):
         return context_data
 
     def form_valid(self, form):
-        r = form.add_order()
-        return HttpResponseRedirect(reverse(self.success_url, kwargs={'query_set': r}))
+        order = form.add_order()
+        self.success_url = order.get_absolute_url()
+        return super().form_valid(form)
 
 
-class MenuPositionListView(ListView):
+class MenuPositionInOrderListView(ListView):
     model = MenuPosition
+    paginate_by = MENU_POSITION_PAGINATE_BY
+
+    def get_queryset(self):
+        order = get_object_or_404(Order, id=self.kwargs.get('pk'))
+        return order.menupositioninorder_set.all()
 
     def get_context_data(self, **kwargs):
-        res = super().get_context_data(**kwargs)
-        return res
+        context = super().get_context_data(**kwargs)
+        # TODO: count total price
+        return context
 

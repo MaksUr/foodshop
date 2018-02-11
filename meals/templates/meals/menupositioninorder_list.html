@@ -5,15 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-    {% for menu_position in menuposition_list %}
-        <p>{{ menu_position.name }}</p>
-        <p>{{ menu_position.nutritional_value }}</p>
-        <p>{{ menu_position.price }}</p>
+    {% for object in object_list %}
+        <p>{{ object.menu_position.name }}</p>
+        <p>{{ object.menu_position.nutritional_value }}</p>
+        <p>{{ object.menu_position.price }}</p>
         <p></p>
-        <img src="{{ menu_position.image }}" alt="{{ menu_position.name }}">
+        <img src="{{ object.menu_position.image }}" alt="{{ object.menu_position.name }}">
         <p>================</p>
-    {% empty %}
-        Меню в разработке.
     {% endfor %}
     {% if is_paginated %}
         {% if page_obj.has_previous %}
