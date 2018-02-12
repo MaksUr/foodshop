@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.conf.urls.static import static
+from rest_framework.urlpatterns import format_suffix_patterns
 
 from foodShop import settings
 from meals.views import MenuPositionSelectFormView, MenuPositionInOrderListView, NewMenuPositionView, \
-    MenuPositionDetailView
+    MenuPositionDetailView, menu_position_list, menu_position_detail
 
 urlpatterns = [
     url(r'^$', MenuPositionSelectFormView.as_view(), name='index'),
@@ -26,7 +27,12 @@ urlpatterns = [
     url(r'^order/(?P<pk>([0-9]+))/$', MenuPositionInOrderListView.as_view(), name='order'),
     url(r'^new_position/$', NewMenuPositionView.as_view(), name='add_position'),
     url(r'^menu_position/(?P<pk>([0-9]+))/$', MenuPositionDetailView.as_view(), name='menu_position'),
+    url(r'^api/menu_positions/$', menu_position_list, name='api_menu_positions'),
+    url(r'^api/menu_position/(?P<pk>([0-9]+))/$', menu_position_detail, name='api_menu_position'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+urlpatterns = format_suffix_patterns(urlpatterns)

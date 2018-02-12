@@ -6,6 +6,7 @@
 </head>
 <body>
     <a href="{% url 'add_position' %}">Добавить позицию</a>
+    <a href="{% url 'api_menu_positions' %}">API Меню</a>
     {% if form.menu_positions.field.choices %}
         <form method="post">{% csrf_token %}
             <ul>
