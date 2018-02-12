@@ -1,21 +1,33 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% block meta %}<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">{% endblock meta %}
+    <title>
+        Ресторан
+    </title>
+    {# Base CSS #}
+    {% block base_css %}
+        <link rel="stylesheet" type="text/css" href="/static/meals/css/base.css">
+    {% endblock base_css %}   
 </head>
 <body>
+    <div class="main">
     {% if object_list %}
         {% if total_price %}
             <p>Total price: {{ total_price }}</p>
         {% endif %}
         {% for object in object_list %}
-            <p>{{ object.name }}</p>
-            <p>{{ object.nutritional_value }}</p>
-            <p>{{ object.price }}</p>
-            <p></p>
-            <img src="{{ object.image.url }}" alt="{{ object.name }}">
-            <p>================</p>
+        <div class="container">
+            <div class="product-img" style="background-image: url({{ object.image.url }}); height: 200px; width: 200px"></div>
+            <div class="product-data">
+                <div class="name-product">{{ object.name }}</div>
+                <div class="product-cal">{{ object.nutritional_value }} ккал</div>
+                <div class="product-price"> {{ object.price }} руб.</div>
+            </div>
+        </div>
         {% endfor %}
         {% if is_paginated %}
             {% if page_obj.has_previous %}
@@ -27,5 +39,10 @@
             {% endif %}
         {% endif %}
     {% endif %}
+    </div>
+{# Base JS #}
+    {% block base_js %}
+        <script type="text/javascript" src="static/meals/js/script.js""></script>
+    {% endblock base_js %}
 </body>
 </html>

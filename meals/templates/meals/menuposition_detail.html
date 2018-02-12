@@ -1,10 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% block meta %}<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">{% endblock meta %}
+    <title>
+        Ресторан
+    </title>
+    {# Base CSS #}
+    {% block base_css %}
+        <link rel="stylesheet" type="text/css" href="static/meals/css/base.css">
+    {% endblock base_css %}   
 </head>
 <body>
     {% include 'meals/menu_position_for_include.html' with object=object %}
+
+    {# Base JS #}
+    {% block base_js %}
+        <script type="text/javascript" src="static/meals/js/script.js""></script>
+    {% endblock base_js %}
 </body>
 </html>

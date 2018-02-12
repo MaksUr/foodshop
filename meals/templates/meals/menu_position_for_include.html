@@ -1,6 +1,9 @@
-<div>
-    <p><img src="{{ object.image.url }}" alt="{{ object.name }}" height="150" width="150"></p>
-    <p><strong>{{ object.name }}</strong></p>
-    <p><span class="price">Цена: {{ object.price }}</span></p>
-    <p><span class="price">Калорийность: {{ object.nutritional_value }}</span></p>
+<div class="product-img" style="background-image: url({{ object.image.url }}); height: 200px; width: 200px"></div>
+<div class="product-data">
+    <div class="name-product">{{ object.name }}</div>
+    <div class="product-cal">{{ object.nutritional_value }} ккал</div>
+    <div class="product-price"> {{ object.price }} руб.</div>
+    <label for="id_{{ form.menu_positions.name }}_{{ obj.id }}">
+        <input type="checkbox" name="{{ form.menu_positions.name }}" value="{{ obj.id }}">Подтвердить заказ
+    </label>
 </div>
