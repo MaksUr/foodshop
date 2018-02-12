@@ -1,14 +1,11 @@
 from django.db.models import Sum
-from django.http import HttpResponse
+from django.http import Http404
 from django.shortcuts import get_object_or_404
-
 # Create your views here.
-from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import FormView, ListView, DetailView
 from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from meals.constants import MENU_POSITION_PAGINATE_BY
 from meals.forms import MenuPositionSelectForm, MenuPositionForm
@@ -61,14 +58,13 @@ class MenuPositionDetailView(DetailView):
     pass
 
 
-@api_view(['GET', 'POST'])
-def menu_position_list(request, format=None):
-    if request.method == 'GET':
+class MenuPositionList(APIView):
+    def get(self, request, format=None):
         menu_positions = MenuPosition.objects.all()
         serializer = MenuPositionSerializer(menu_positions, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+    def post(self, request, format=None):
         serializer = MenuPositionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -76,24 +72,28 @@ def menu_position_list(request, format=None):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def menu_position_detail(request, pk, format=None):
-    try:
-        menu_positions = MenuPosition.objects.get(pk=pk)
-    except MenuPosition.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+class MenuPositionDetail(APIView):
 
-    if request.method == 'GET':
-        serializer = MenuPositionSerializer(menu_positions)
+    def get_object(self, pk):
+        try:
+            return MenuPosition.objects.get(pk=pk)
+        except MenuPosition.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        menu_position = self.get_object(pk)
+        serializer = MenuPositionSerializer(menu_position)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        serializer = MenuPositionSerializer(menu_positions, data=request.data)
+    def put(self, request, pk, format=None):
+        menu_position = self.get_object(pk)
+        serializer = MenuPositionSerializer(menu_position, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        menu_positions.delete()
+    def delete(self, request, pk, format=None):
+        menu_position = self.get_object(pk)
+        menu_position.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
