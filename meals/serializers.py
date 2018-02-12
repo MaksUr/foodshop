@@ -8,6 +8,6 @@ from meals.models import MenuPosition
 class MenuPositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuPosition
-        fields = (MENU_POSITION_NAME, MENU_POSITION_NUTRITIONAL_VALUE, MENU_POSITION_PRICE)
+        fields = (MENU_POSITION_NAME, MENU_POSITION_NUTRITIONAL_VALUE, MENU_POSITION_PRICE, MENU_POSITION_IMAGE)
 
 
