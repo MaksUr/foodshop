@@ -13,8 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.conf.urls.static import static
+from django.contrib import admin
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from foodShop import settings
@@ -27,8 +28,13 @@ urlpatterns = [
     url(r'^order/(?P<pk>([0-9]+))/$', MenuPositionInOrderListView.as_view(), name='order'),
     url(r'^new_position/$', NewMenuPositionView.as_view(), name='add_position'),
     url(r'^menu_position/(?P<pk>([0-9]+))/$', MenuPositionDetailView.as_view(), name='menu_position'),
-    url(r'^api/menu_positions/$', MenuPositionList.as_view(), name='api_menu_positions'),
-    url(r'^api/menu_position/(?P<pk>([0-9]+))/$', MenuPositionDetail.as_view(), name='api_menu_position'),
+
+    url(r'^api-auth/', include('rest_framework.urls')),
+
+    url(r'^api_menu_positions/$', MenuPositionList.as_view(), name='api_menu_positions'),
+    url(r'^api_menu_position/(?P<pk>([0-9]+))/$', MenuPositionDetail.as_view(), name='api_menu_position'),
+
+    url(r'^admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
