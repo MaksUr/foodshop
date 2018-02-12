@@ -4,13 +4,12 @@ from django.db import models
 from django.db.models import CharField, PositiveIntegerField, ImageField, DecimalField, ForeignKey
 from django.urls import reverse
 
-from foodShop.settings import MEDIA_ROOT
 from meals.constants import MENU_POSITION_NAME_KEY, MENU_POSITION_NUTRITIONAL_VALUE_KEY, MENU_POSITION_IMAGE_KEY, \
-    MENU_POSITION_PRICE_KEY
+    MENU_POSITION_PRICE_KEY, MENU_POSITION_MAX_LENGTH
 
 
 class MenuPosition(models.Model):
-    name = CharField(MENU_POSITION_NAME_KEY, max_length=45)
+    name = CharField(MENU_POSITION_NAME_KEY, max_length=MENU_POSITION_MAX_LENGTH)
     nutritional_value = PositiveIntegerField(MENU_POSITION_NUTRITIONAL_VALUE_KEY)
     price = DecimalField(MENU_POSITION_PRICE_KEY, max_digits=10, decimal_places=2)
     image = ImageField(MENU_POSITION_IMAGE_KEY, upload_to='meal_images')
