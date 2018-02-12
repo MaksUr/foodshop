@@ -10,4 +10,3 @@ class MenuPositionSerializer(serializers.ModelSerializer):
         model = MenuPosition
         fields = (MENU_POSITION_NAME, MENU_POSITION_NUTRITIONAL_VALUE, MENU_POSITION_PRICE, MENU_POSITION_IMAGE)
 
-

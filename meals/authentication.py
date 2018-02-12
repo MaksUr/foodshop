@@ -1,12 +1,14 @@
-from rest_framework.authentication import TokenAuthentication
+from django.contrib.auth.models import User, AnonymousUser
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.authtoken.models import Token
+
+from foodShop.settings import SECRET_KEY
 
 
 class CustomToken(Token):
-    def save(self, *args, **kwargs):
-        if not self.key:
-            self.key = 'my_token'
-        return super(Token, self).save(*args, **kwargs)
+    def generate_key(self):
+        print('generate_token')
+        return SECRET_KEY
 
 
 class CustomAuthentication(TokenAuthentication):

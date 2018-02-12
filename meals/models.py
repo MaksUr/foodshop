@@ -1,9 +1,14 @@
+from django.conf.global_settings import AUTH_USER_MODEL
 from django.db import models
 
 # Create your models here.
 from django.db.models import CharField, PositiveIntegerField, ImageField, DecimalField, ForeignKey
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.urls import reverse
+from rest_framework.authtoken.models import Token
 
+from meals.authentication import CustomToken
 from meals.constants import MENU_POSITION_NAME_KEY, MENU_POSITION_NUTRITIONAL_VALUE_KEY, MENU_POSITION_IMAGE_KEY, \
     MENU_POSITION_PRICE_KEY, MENU_POSITION_MAX_LENGTH
 
@@ -30,4 +35,10 @@ class MenuPositionInOrder(models.Model):
     menu_position = ForeignKey(MenuPosition)
     order = ForeignKey(Order)
 
+
+@receiver(post_save, sender=AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    print('tooooken')
+    if created:
+        CustomToken.objects.create(user=instance)
 

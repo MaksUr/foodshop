@@ -13,14 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from foodShop import settings
 from meals.views import MenuPositionSelectFormView, MenuPositionInOrderListView, NewMenuPositionView, \
-    MenuPositionDetailView, MenuPositionList, MenuPositionDetail
+    MenuPositionDetailView, MenuPositionList, MenuPositionDetail, CustomObtainAuthToken
 
 urlpatterns = [
     url(r'^$', MenuPositionSelectFormView.as_view(), name='index'),
@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^new_position/$', NewMenuPositionView.as_view(), name='add_position'),
     url(r'^menu_position/(?P<pk>([0-9]+))/$', MenuPositionDetailView.as_view(), name='menu_position'),
 
-    url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'^api-token-auth/', CustomObtainAuthToken.as_view(), name='auth'),
 
     url(r'^api_menu_positions/$', MenuPositionList.as_view(), name='api_menu_positions'),
     url(r'^api_menu_position/(?P<pk>([0-9]+))/$', MenuPositionDetail.as_view(), name='api_menu_position'),
