@@ -14,7 +14,7 @@
             <p>{{ object.nutritional_value }}</p>
             <p>{{ object.price }}</p>
             <p></p>
-            <img src="{{ object.image }}" alt="{{ object.name }}">
+            <img src="{{ object.image.url }}" alt="{{ object.name }}">
             <p>================</p>
         {% endfor %}
         {% if is_paginated %}
