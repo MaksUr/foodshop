@@ -1,0 +1,18 @@
+@font-face {
+    font-family: SourceSansPro;
+    src: url(../font/SourceSansPro/SourceSansPro-Regular.ttf);
+    font-style: normal;
+    font-weight: 400
+}
+
+body {
+    line-height: 25px;
+}
+body, input {
+    color: #333;
+    font-family: SourceSansPro, Arial, cursive;
+}
+
+p, input {
+    font-size: 16px;
+}
