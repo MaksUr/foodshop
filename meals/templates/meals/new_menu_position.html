@@ -8,10 +8,7 @@
     <title>
         Ресторан
     </title>
-    {# Base CSS #}
-    {% block base_css %}
-        <link rel="stylesheet" type="text/css" href="../static/meals/css/base.css">
-    {% endblock base_css %}   
+        <link rel="stylesheet" type="text/css" href="{% static 'meals/css/base.css' %}">
 </head>
 <body>
     <h1>Новое блюдо</h1>
@@ -22,11 +19,6 @@
             {{ form.errors }}
         {% endif %}
     </form>
-    {# Base JS #}
-    {% block base_js %}
-        <script type="text/javascript" src="static/meals/js/script.js""></script>
-    {% endblock base_js %}
-
-    {# Custom JS #}
+        <script type="text/javascript" src="{% static 'meals/js/script.js' %}"></script>
 </body>
 </html>

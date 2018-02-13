@@ -10,7 +10,7 @@
     </title>
     {# Base CSS #}
     {% block base_css %}
-        <link rel="stylesheet" type="text/css" href="/static/meals/css/base.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'meals/css/base.css' %}">
     {% endblock base_css %}   
 </head>
 <body>
@@ -40,9 +40,8 @@
         {% endif %}
     {% endif %}
     </div>
-{# Base JS #}
     {% block base_js %}
-        <script type="text/javascript" src="static/meals/js/script.js""></script>
+        <script type="text/javascript" src="{% static 'meals/js/script.js' %}"></script>
     {% endblock base_js %}
 </body>
 </html>
