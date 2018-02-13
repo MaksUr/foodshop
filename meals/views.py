@@ -56,7 +56,6 @@ class NewMenuPositionView(FormView):
 
 class MenuPositionDetailView(DetailView):
     model = MenuPosition
-    pass
 
 
 class MenuPositionList(ListCreateAPIView):

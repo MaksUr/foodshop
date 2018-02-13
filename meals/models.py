@@ -1,10 +1,6 @@
-from django.conf.global_settings import AUTH_USER_MODEL
 from django.db import models
-
 # Create your models here.
 from django.db.models import CharField, PositiveIntegerField, ImageField, DecimalField, ForeignKey
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.urls import reverse
 from rest_framework.authtoken.models import Token
 
@@ -35,10 +31,4 @@ class MenuPositionInOrder(models.Model):
     menu_position = ForeignKey(MenuPosition)
     order = ForeignKey(Order)
 
-
-@receiver(post_save, sender=AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    print('tooooken')
-    if created:
-        CustomToken.objects.create(user=instance)
 
