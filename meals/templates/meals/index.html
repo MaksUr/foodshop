@@ -1,34 +1,45 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% block meta %}<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">{% endblock meta %}
+    <title>
+        Ресторан
+    </title>
+    {# Base CSS #}
+    {% block base_css %}
+        <link rel="stylesheet" type="text/css" href="static/meals/css/base.css">
+    {% endblock base_css %}   
 </head>
 <body>
-    <a href="{% url 'add_position' %}">Добавить позицию</a>
-    {% if form.menu_positions.field.choices %}
-        <form method="post">{% csrf_token %}
-            <ul>
-                {% for value, text, obj  in form.menu_positions.field.choices %}
-                    <li>
-                        {% include 'meals/menu_position_for_include.html' with object=obj %}
-                        <label for="id_{{ form.menu_positions.name }}_{{ obj.id }}">
-                            <input type="checkbox"
-                                       name="{{ form.menu_positions.name }}"
-                                       value="{{ obj.id }}"
-                            >
-                        </label>
-                    </li>
-                {% endfor %}
-            </ul>
-            {% if form.errors %}
-                    <p>Для оформления заказа необходимо выбрать хотябы одну позицию</p>
-            {% endif %}
-            <input type="submit" value="Submit" />
-        </form>
-    {% else %}
-        <p>Наше меню находится в разработке.</p>
-    {% endif %}
+    <div class="main">
+        <a href="{% url 'add_position' %}" class="link">Добавить позицию</a>
+        <div class="product">
+        {% if form.menu_positions.field.choices %}
+            <form method="post">{% csrf_token %}
+                    {% for value, text, obj  in form.menu_positions.field.choices %}
+                        <div class="container">
+                            {% include 'meals/menu_position_for_include.html' with object=obj %}
+                        </div>
+                    {% endfor %}
+                {% if form.errors %}
+                        <p>Для оформления заказа необходимо выбрать хотя бы одну позицию</p>
+                {% endif %}
+                <input type="submit" value="Заказать" class="button"/>
+            </form>
+        </div>
+        {% else %}
+            <p>Наше меню находится в разработке.</p>
+        {% endif %}
+    </div>
+    {# Base JS #}
+    {% block base_js %}
+        <script type="text/javascript" src="static/meals/js/script.js""></script>
+    {% endblock base_js %}
 
+    {# Custom JS #}
+    
 </body>
 </html>
