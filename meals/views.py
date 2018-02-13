@@ -69,8 +69,6 @@ class MenuPositionDetail(RetrieveUpdateDestroyAPIView):
 
 
 class CustomObtainAuthToken(ObtainAuthToken):
-    permission_classes = (IsAuthenticated, )
-    authentication_classes = (CustomAuthentication,)
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
