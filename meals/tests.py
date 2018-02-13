@@ -14,6 +14,15 @@ from meals.models import MenuPosition, CustomToken
 
 class ApiTests(APITestCase):
 
+    def get_image(self):
+        file = io.BytesIO()
+        image = Image.new('RGBA', size=(100, 100), color=(155, 0, 0))
+
+        image.save(file, 'png')
+        file.name = 'test.png'
+        file.seek(0)
+        return file
+
     def setUp(self):
         self.test_user = User.objects.create_user('User', 'user@test.com', 'admin1234')
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + CustomToken.KEY)
@@ -29,17 +38,12 @@ class ApiTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_add_menu_position(self):
-        file = io.BytesIO()
-        image = Image.new('RGBA', size=(100, 100), color=(155, 0, 0))
 
-        image.save(file, 'png')
-        file.name = 'test.png'
-        file.seek(0)
         data = {
             MENU_POSITION_NAME: 'Пюрешечка',
             MENU_POSITION_NUTRITIONAL_VALUE: 200,
             MENU_POSITION_PRICE: 150.50,
-            MENU_POSITION_IMAGE: file,
+            MENU_POSITION_IMAGE: self.get_image(),
         }
         response = self.client.post(urlresolvers.reverse('api_menu_positions'), data, format='multipart')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -47,6 +51,49 @@ class ApiTests(APITestCase):
         self.assertEqual(response.data[MENU_POSITION_NUTRITIONAL_VALUE], data[MENU_POSITION_NUTRITIONAL_VALUE])
         self.assertEqual(response.data[MENU_POSITION_PRICE], '{:.2f}'.format(data[MENU_POSITION_PRICE]))
         self.assertEqual(MenuPosition.objects.count(), 1)
+
+
+    def test_empty_name(self):
+        data = {
+            MENU_POSITION_NAME: 'Пюрешечка',
+            MENU_POSITION_NUTRITIONAL_VALUE: 200,
+            MENU_POSITION_PRICE: 150.50,
+            MENU_POSITION_IMAGE: self.get_image(),
+        }
+        response = self.client.post(urlresolvers.reverse('api_menu_positions'), data, format='multipart')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_empty_price(self):
+        data = {
+            MENU_POSITION_NAME: 'Пюрешечка',
+            MENU_POSITION_NUTRITIONAL_VALUE: 200,
+            MENU_POSITION_IMAGE: self.get_image(),
+        }
+        response = self.client.post(urlresolvers.reverse('api_menu_positions'), data, format='multipart')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_empty_nutr_value(self):
+        data = {
+            MENU_POSITION_NAME: 'Пюрешечка',
+            MENU_POSITION_PRICE: 300,
+            MENU_POSITION_IMAGE: self.get_image(),
+        }
+        response = self.client.post(urlresolvers.reverse('api_menu_positions'), data, format='multipart')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_empty_image(self):
+        data = {
+            MENU_POSITION_NAME: 'Пюрешечка',
+            MENU_POSITION_NUTRITIONAL_VALUE: 200,
+            MENU_POSITION_PRICE: 300,
+        }
+        response = self.client.post(urlresolvers.reverse('api_menu_positions'), data, format='multipart')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
 
 
 

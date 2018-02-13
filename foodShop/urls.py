@@ -24,7 +24,6 @@ from meals.views import MenuPositionSelectFormView, MenuPositionInOrderListView,
 
 urlpatterns = [
     url(r'^$', MenuPositionSelectFormView.as_view(), name='index'),
-    # TODO: move to meal
     url(r'^order/(?P<pk>([0-9]+))/$', MenuPositionInOrderListView.as_view(), name='order'),
     url(r'^new_position/$', NewMenuPositionView.as_view(), name='add_position'),
     url(r'^menu_position/(?P<pk>([0-9]+))/$', MenuPositionDetailView.as_view(), name='menu_position'),

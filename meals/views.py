@@ -4,10 +4,9 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import FormView, ListView, DetailView
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from meals.authentication import CustomToken, CustomAuthentication
+from meals.authentication import CustomToken
 from meals.constants import MENU_POSITION_PAGINATE_BY
 from meals.forms import MenuPositionSelectForm, MenuPositionForm
 from meals.models import MenuPosition, Order
