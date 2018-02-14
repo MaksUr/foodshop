@@ -10,7 +10,7 @@ from meals.constants import MENU_POSITION_NAME_KEY, MENU_POSITION_NUTRITIONAL_VA
 
 
 class CustomToken(models.Model):
-    KEY = 'SECRET_KEY'
+    KEY = settings.SECRET_KEY
     key = models.CharField(_("Key"), max_length=40)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
