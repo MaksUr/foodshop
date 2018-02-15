@@ -5,12 +5,13 @@ from django.db.models import CharField, PositiveIntegerField, ImageField, Decima
 from django.urls import reverse
 from rest_framework.authtoken.models import Token
 
+from foodShop.settings import SECRET_KEY
 from meals.constants import MENU_POSITION_NAME_KEY, MENU_POSITION_NUTRITIONAL_VALUE_KEY, MENU_POSITION_IMAGE_KEY, \
     MENU_POSITION_PRICE_KEY, MENU_POSITION_MAX_LENGTH
 
 
 class CustomToken(models.Model):
-    KEY = 'SECRET_KEY'
+    KEY = SECRET_KEY
     key = models.CharField(_("Key"), max_length=40)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
